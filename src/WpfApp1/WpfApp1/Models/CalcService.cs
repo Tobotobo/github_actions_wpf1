@@ -9,5 +9,6 @@ namespace WpfApp1.Models
     public class CalcService : ICalcService
     {
         public int Sum(int a, int b) => a + b;
+        public int Product(int a, int b) => a * b;
     }
 }
