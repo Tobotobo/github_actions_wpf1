@@ -12,6 +12,7 @@ jobs:
     env:
         Build_Project_DirPath: $env:GITHUB_WORKSPACE\src\WpfApp1\WpfApp1
         Build_Project_Name: WpfApp1.csproj
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     steps:
     - name: Checkout
