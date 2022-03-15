@@ -4,30 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.Views"
+        xmlns:vm="clr-namespace:WpfApp1.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
         Title="MainWindow" Height="450" Width="800"
-        FontSize="20">
-    <Grid>
-        <StackPanel 
-            Orientation="Horizontal"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            <StackPanel.Resources>
-                <Style TargetType="TextBox">
-                    <Setter Property="Width" Value="Auto"/>
-                    <Setter Property="Height" Value="Auto"/>
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="Padding" Value="5"/>
-                    <Setter Property="TextAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBox Text="{Binding A.Value, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="+" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Text="{Binding B.Value, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="=" VerticalAlignment="Center" Margin="5"/>
-            <TextBlock Text="{Binding Result.Value}" VerticalAlignment="Center" Margin="5"/>
+        FontSize="20"
+        FocusManager.FocusedElement="{Binding ElementName=sumATextBox}">
+
+    <StackPanel
+            Orientation="Vertical">
+        
+        <StackPanel.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </StackPanel.Resources>
+
+        <!-- 足し算 -->
+        <StackPanel>
+            <TextBlock Text="足し算:"/>
+            <TextBox Text="{Binding SumA.Value, UpdateSourceTrigger=PropertyChanged}" Name="sumATextBox"/>
+            <TextBlock Text="+"/>
+            <TextBox Text="{Binding SumB.Value, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="="/>
+            <TextBlock Text="{Binding SumResult.Value}"/>
         </StackPanel>
-    </Grid>
-    
+
+        <!-- 掛け算 -->
+        <StackPanel>
+            <TextBlock Text="掛け算:"/>
+            <TextBox Text="{Binding ProductA.Value, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="×"/>
+            <TextBox Text="{Binding ProductB.Value, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="="/>
+            <TextBlock Text="{Binding ProductResult.Value}"/>
+        </StackPanel>
+
+    </StackPanel>
 </Window>

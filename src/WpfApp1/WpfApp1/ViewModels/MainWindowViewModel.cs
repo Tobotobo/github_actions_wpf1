@@ -7,16 +7,22 @@ namespace WpfApp1.ViewModels
 {
     public class MainWindowViewModel
     {
-        public ReactiveProperty<int> A { get; }
-        public ReactiveProperty<int> B { get; }
-        public ReactiveProperty<int> Result { get; }
+        public ReactiveProperty<int> SumA { get; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> SumB { get; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> SumResult { get; }
+
+        public ReactiveProperty<int> ProductA { get; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> ProductB { get; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> ProductResult { get; }
 
         public MainWindowViewModel(ICalcService calcService)
         {
-            A = new ReactiveProperty<int>();
-            B = new ReactiveProperty<int>();
-            Result = ObservableEx.CombineLatest(A, B)
+            SumResult = ObservableEx.CombineLatest(SumA, SumB)
                 .Select(x => calcService.Sum(x.First, x.Second))
+                .ToReactiveProperty();
+
+            ProductResult = ObservableEx.CombineLatest(ProductA, ProductB)
+                .Select(x => calcService.Product(x.First, x.Second))
                 .ToReactiveProperty();
         }
     }
