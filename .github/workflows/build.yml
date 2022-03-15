@@ -34,5 +34,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
           name: Release
-          path: $env:Project_DirPath\bin\Release
+          path: src\WpfApp1\WpfApp1\bin\Release
 
