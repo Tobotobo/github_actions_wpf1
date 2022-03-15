@@ -1,0 +1,37 @@
+name: Build
+
+on: [ workflow_dispatch ]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    timeout-minutes: 5
+
+    env:
+        Build_Project_DirPath: $env:GITHUB_WORKSPACE\src\WpfApp1\WpfApp1
+        Build_Project_Name: WpfApp1.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup Nuget
+      uses: warrenbuckley/Setup-Nuget@v1
+
+    - name: Nuget Restore
+      run: nuget restore $env:Build_Project_DirPath\$env:Build_Project_Name
+    
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+    
+    - name: Create the app Exe  
+      run: MSBuild.exe $env:Build_Project_DirPath\$env:Build_Project_Name -p:Configuration=Release
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: Release
+          path: $env:Build_Project_DirPath\bin\Release
+
