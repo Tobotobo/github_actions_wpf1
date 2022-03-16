@@ -1,0 +1,23 @@
+name: Test
+
+on: [ workflow_dispatch ]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    timeout-minutes: 10
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+
+    - name: Nuget Restore
+      run: nuget restore ${{ env.Solution_Path }}
+    
+    - name: Nunit Test
+      run: src\WpfApp1\packages\NUnit.ConsoleRunner.3.15.0\tools\nunit3-console.exe src\WpfApp1\WpfApp1Test\WpfApp1Test.csproj
