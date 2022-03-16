@@ -3,11 +3,14 @@ name: Test
 on: [ workflow_dispatch ]
 
 jobs:
-  build:
+  test:
 
     runs-on: windows-2019
 
     timeout-minutes: 10
+
+    env:
+        Solution_Path: src\WpfApp1\WpfApp1.sln
         
     steps:
     - name: Checkout
